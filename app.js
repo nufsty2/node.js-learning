@@ -3,6 +3,7 @@ const logger = new Logger();
 const path = require('path');
 const os = require('os');
 const fs = require('fs');
+const http = require('http');
 
 // path
 var pathObj = path.parse(__filename);
@@ -30,6 +31,21 @@ logger.on('messageLogged', (eventArg) => { // registers an event listener
     console.log('Listener called', eventArg);
 });
 logger.log('message');
+
+// http
+const server = http.createServer((req, res) => {
+    if (req.url === '/') {
+        res.write('Hello World');
+        res.end();
+    }
+
+    if (req.url === '/api/courses') {
+        res.write(JSON.stringify([1, 2, 3]));
+        res.end();
+    }
+});
+server.listen(3000);
+console.log('Listening on port 3000...');
 
 /*
 Notes
