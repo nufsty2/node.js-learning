@@ -1,4 +1,5 @@
-const logger = require('./logger.js');
+const Logger = require('./logger.js');
+const logger = new Logger();
 const path = require('path');
 const os = require('os');
 const fs = require('fs');
@@ -23,6 +24,12 @@ fs.readdir('./', function(err, files) { // asynchronous
         console.log('Result', files);
 });
 
+// events
+// Register an event listener
+logger.on('messageLogged', (eventArg) => { // registers an event listener
+    console.log('Listener called', eventArg);
+});
+logger.log('message');
 
 /*
 Notes
